@@ -32,6 +32,7 @@
 volatile char gps_in[GPS_BUFFER_SIZE];
 
 volatile uint16_t gps_spot = 0;
+volatile uint16_t gps_time;
 volatile uint16_t gps_long_high; //Degree and minute portion
 volatile uint16_t gps_long_low; //Decimal minute portion
 volatile uint16_t gps_lat_high;
@@ -121,6 +122,7 @@ uint8_t parse_gps(void)
 
 	uint8_t sentence_checksum;
 
+	gps_time = 0;
 	gps_lat_high = 0;
 	gps_lat_low = 0;
 	gps_long_high = 0;
@@ -165,6 +167,13 @@ uint8_t parse_gps(void)
 		//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 		while(gps_in[++i] != ','); //Spin to first comma ,052644.000 (time)
+		for(j = 0 ; j < 5 ; j++)
+		{
+			gps_time *= 10;
+			gps_time += (gps_in[++i] - '0'); //Freaky way of converting ASCII to decimal
+			if(gps_in[i+1] == '.')	break;	// Seconds are good enough for now
+		}
+
 		while(gps_in[++i] != ','); //Spin to second comma ,4000.9299 (lat)
 
 		//Pull out lat
@@ -342,4 +351,9 @@ uint16_t get_lat_high(void)
 uint16_t get_lat_low(void)
 {
 	return(gps_lat_low);
+}
+
+uint16_t get_time(void)
+{
+	return(gps_time);
 }
