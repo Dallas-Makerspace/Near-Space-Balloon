@@ -66,6 +66,8 @@ int main (void)
 
 	while(1)
 	{
+		report_state();
+/*
 		printf("\nz) SOTW");
 		printf(" s) Settings");
 		printf(" m) Time");
@@ -268,10 +270,10 @@ int main (void)
 				printf("P:%ld\n", pressure);
 
 				// For fun, lets convert to altitude
-				/*temp = (double) pressure/101325;
-				temp = 1 - pow(temp, 0.19029);
-				altitude = round(44330*temp);
-				printf("A:%ld\n", altitude);*/
+				//temp = (double) pressure/101325;
+				//temp = 1 - pow(temp, 0.19029);
+				//altitude = round(44330*temp);
+				//printf("A:%ld\n", altitude);
 	
 				if ((UCSR0A & _BV(RXC0))) //Check for incoming RX characters
 					if(UDR0 == 'x') break;
@@ -412,7 +414,7 @@ int main (void)
 			cbi(PORTB, STAT3_LED);
 		else
 			sbi(PORTB, STAT3_LED);
-
+*/
 	}
     return(0);
 }
