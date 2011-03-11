@@ -430,7 +430,8 @@ void report_state(void)
 	int16_t humidity_level;
 	long temperature = 0;
 	long pressure = 0;
-	uint16_t long_h, long_l, lat_h, lat_l, altitude, gps_time;
+	uint16_t long_h, long_l, lat_h, lat_l, altitude;
+	uint32_t utc_time;
 	uint8_t siv, fix;
 	char loop_number = 0; //1 is lat, 2 is long, 3 is alt, 4 is pressure
 	long batt_lvl;
@@ -486,7 +487,7 @@ void report_state(void)
 		parse_gps();
 		convert_gps();
 
-		gps_time = get_gps_time();
+		utc_time = get_time();
 		long_h = get_long_high();
 		long_l = get_long_low();
 		lat_h = get_lat_high();
@@ -495,7 +496,7 @@ void report_state(void)
 		fix = get_fix();
 		altitude = get_altitude();
 		
-		printf("%d,", gps_time);
+		printf("%06u,", utc_time);
 
 		//We must display %04d for the .dddd portion to get the zeros to work correctly
 		printf("%03d.%04d,", long_h, long_l);

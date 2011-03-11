@@ -32,7 +32,7 @@
 volatile char gps_in[GPS_BUFFER_SIZE];
 
 volatile uint16_t gps_spot = 0;
-volatile uint16_t gps_time;
+volatile uint32_t gps_time;
 volatile uint16_t gps_long_high; //Degree and minute portion
 volatile uint16_t gps_long_low; //Decimal minute portion
 volatile uint16_t gps_lat_high;
@@ -354,7 +354,7 @@ uint16_t get_lat_low(void)
 	return(gps_lat_low);
 }
 
-uint16_t get_gps_time(void)
+uint32_t get_time(void)
 {
 	return(gps_time);
 }
