@@ -496,7 +496,7 @@ void report_state(void)
 		fix = get_fix();
 		altitude = get_altitude();
 		
-		printf("%06u,", utc_time);
+		printf("%06lu,", utc_time);
 
 		//We must display %04d for the .dddd portion to get the zeros to work correctly
 		printf("%03d.%04d,", long_h, long_l);

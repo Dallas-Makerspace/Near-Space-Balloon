@@ -172,7 +172,6 @@ uint8_t parse_gps(void)
 		{
 			gps_time *= 10;
 			gps_time += (gps_in[++i] - '0'); //Freaky way of converting ASCII to decimal
-			//if(gps_in[i+1] == '.')	break;	// Seconds are good enough for now
 		}
 
 		while(gps_in[++i] != ','); //Spin to second comma ,4000.9299 (lat)
