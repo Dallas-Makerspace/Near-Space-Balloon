@@ -167,11 +167,12 @@ uint8_t parse_gps(void)
 		//=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 		while(gps_in[++i] != ','); //Spin to first comma ,052644.000 (time)
-		for(j = 0 ; j < 5 ; j++)
+		gps_time = 0;
+		for(j = 0 ; j < 6 ; j++)
 		{
 			gps_time *= 10;
 			gps_time += (gps_in[++i] - '0'); //Freaky way of converting ASCII to decimal
-			if(gps_in[i+1] == '.')	break;	// Seconds are good enough for now
+			//if(gps_in[i+1] == '.')	break;	// Seconds are good enough for now
 		}
 
 		while(gps_in[++i] != ','); //Spin to second comma ,4000.9299 (lat)
@@ -353,7 +354,7 @@ uint16_t get_lat_low(void)
 	return(gps_lat_low);
 }
 
-uint16_t get_time(void)
+uint16_t get_gps_time(void)
 {
 	return(gps_time);
 }

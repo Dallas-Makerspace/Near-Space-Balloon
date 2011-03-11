@@ -17,6 +17,6 @@ uint16_t get_long_high(void);
 uint16_t get_long_low(void);
 uint16_t get_lat_high(void);
 uint16_t get_lat_low(void);
-uint16_t get_time(void);
+uint16_t get_gps_time(void);
 
 void delay_ms(uint16_t x);

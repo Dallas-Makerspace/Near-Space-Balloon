@@ -486,7 +486,7 @@ void report_state(void)
 		parse_gps();
 		convert_gps();
 
-		gps_time = get_time();
+		gps_time = get_gps_time();
 		long_h = get_long_high();
 		long_l = get_long_low();
 		lat_h = get_lat_high();
@@ -495,7 +495,7 @@ void report_state(void)
 		fix = get_fix();
 		altitude = get_altitude();
 		
-		printf("%06d,", gps_time);
+		printf("%d,", gps_time);
 
 		//We must display %04d for the .dddd portion to get the zeros to work correctly
 		printf("%03d.%04d,", long_h, long_l);
