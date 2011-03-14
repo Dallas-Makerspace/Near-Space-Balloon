@@ -533,17 +533,28 @@ void report_state(void)
 		cbi(PORTD, MUX_A); //Set the mux, talk to radio modem
 		sbi(PORTD, MUX_B); //Set the mux, talk to radio modem
 		
-		//Report Lat, Long, Alt, Pressure
+		//Report telemetry
+		printf("#,");
+		printf("%06lu,", utc_time);
+		printf("%03d.%04d,", long_h, long_l);
+		printf("%02d.%04d,", lat_h, lat_l);
+		printf("%d,%d,%d,", altitude, siv, fix);
+		printf("%d,%d,", temp_internal, temp_external);
+		printf("%d,", (uint16_t)batt_lvl);
+		printf("%ld,", pressure);
+		printf("*\n");
+		// TODO: Add MTK NMEA style checksum
+
 		loop_number++;
 		if(loop_number > 3) loop_number = 0;
-		if(loop_number == 0) printf("%03d.%04d\n", long_h, long_l);
-		if(loop_number == 1) printf("%02d.%04d\n", lat_h, lat_l);
-		if(loop_number == 2) printf("%d,%d,%d\n", altitude, siv, (uint16_t)batt_lvl);
+		//if(loop_number == 0) printf("%03d.%04d\n", long_h, long_l);
+		//if(loop_number == 1) printf("%02d.%04d\n", lat_h, lat_l);
+		//if(loop_number == 2) printf("%d,%d,%d\n", altitude, siv, (uint16_t)batt_lvl);
 		if(loop_number == 3) 
 		{
 			//A weird magneto bug is popping up. The readings lock after a few 
 			init_hmc5843(); //Setup HMC for constant measurement mode @ 50Hz
-			printf("%d,%ld\n", temp_internal, pressure);
+			//printf("%d,%ld\n", temp_internal, pressure);
 		}
 
 		//Now delay for 250ms looking for incoming characters
